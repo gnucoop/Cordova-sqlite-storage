@@ -42,7 +42,7 @@
         DLog(@"Detected Library path: %@", libs);
         [appDBPaths setObject: libs forKey:@"libs"];
 
-        NSString *nosync = [libs stringByAppendingPathComponent:@"LocalDatabase"];
+        NSString *nosync = [libs stringByAppendingPathComponent:@"NoCloud"];
         NSError *err;
         if ([[NSFileManager defaultManager] fileExistsAtPath: nosync])
         {
@@ -56,7 +56,7 @@
                 NSURL *nosyncURL = [ NSURL fileURLWithPath: nosync];
                 if (![nosyncURL setResourceValue: [NSNumber numberWithBool: YES] forKey: NSURLIsExcludedFromBackupKey error: &err])
                 {
-                    DLog(@"IGNORED: error setting nobackup flag in LocalDatabase directory: %@", err);
+                    DLog(@"IGNORED: error setting nobackup flag in NoCloud directory: %@", err);
                 }
                 DLog(@"no cloud sync at path: %@", nosync);
                 [appDBPaths setObject: nosync forKey:@"nosync"];
@@ -64,7 +64,7 @@
             else
             {
                 // fallback:
-                DLog(@"WARNING: error adding LocalDatabase directory: %@", err);
+                DLog(@"WARNING: error adding NoCloud directory: %@", err);
                 [appDBPaths setObject: libs forKey:@"nosync"];
             }
         }
